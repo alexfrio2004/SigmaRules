@@ -1,0 +1,23 @@
+title: Possible GuLoader behavior detection
+status: stable
+description: ' GuLoader is a sophisticated shellcode-based downloader employed by malefactors to disseminate various forms of malware, particularly trojans, on a considerable magnitude. 
+It has gained notoriety for its adept utilization of anti-detection and anti-analysis functionalities. ' 
+references: https://app.any.run/tasks/9feaa4db-c8d7-457e-8194-8fdcb74b77be/
+author: Alexis Rio
+tags:
+    - attack.execution
+    - attack.t1059.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith:
+            - 'FT$48900USD.exe'
+        CommandLine|contains:
+            - ' AppData '
+            - ' Temp '
+    condition: selection
+falsepositives:
+            - unlikely
+level: medium
