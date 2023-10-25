@@ -1,0 +1,22 @@
+title: possible malicious powershell execution
+status: stable
+description: this rule detects malicious powershell execution
+references: https://app.any.run/tasks/fa0f38d4-49d1-4188-bce8-4db4271675e4/
+author: Alexis Rio
+tags:
+    - attack.execution
+    - attack.t1059.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith:
+            - 'powershell.exe'
+        CommandLine|contains:
+            - ' Add-Type '
+            - ' AssemblyName '
+    condition: selection
+falsepositives:
+            - unlikely
+level: medium
