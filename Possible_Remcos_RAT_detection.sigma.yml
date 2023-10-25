@@ -1,0 +1,24 @@
+title: Possible Remcos RAT detection (via process_creation)
+status: stable
+description: ' Remcos is a type of RAT malware that attackers use to remotely carry out actions on infected machines. 
+This malicious software is extremely active and constantly updated, with new versions released almost every month. '
+references: https://app.any.run/tasks/1e061c77-78b8-4496-ae2d-2565b6a4ba77/
+author: Alexis Rio
+tags:
+    - attack.execution
+    - attack.t1059.003
+logsource:
+    category: process_creation
+    product: windows
+detection: 
+    selection:
+        - Image|endswith:
+            - 'cmd.exe'
+        CommandLine|contains:
+            - ' AppData '
+            - ' Temp '
+            - ' install.bat '
+    condition: selection
+falsepositives:
+            - unlikely
+level: medium
