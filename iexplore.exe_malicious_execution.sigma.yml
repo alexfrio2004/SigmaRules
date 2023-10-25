@@ -1,0 +1,23 @@
+title: possible iexplore.exe malicious execution
+status: stable
+description: tis rule detects possible iexplore.exe malicious executionh
+references: https://app.any.run/tasks/37df6756-a9f6-480b-bfcf-94bedf675289/
+author: Alexis Rio
+tags:
+    - attack.execution
+    - attack.t1059.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith:
+            - 'iexplore.exe'
+        CommandLine|contains|all:
+            - ' SCODEF '
+            - ' CREDAT '
+            - ' prefetch '
+    condition: selection
+falsepositives:
+            - unlikely
+level: medium
