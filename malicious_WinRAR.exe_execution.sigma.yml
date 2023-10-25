@@ -1,0 +1,22 @@
+title: possible malicious WinRAR.exe execution
+status: stable
+description: this rule detects malicious WinRAR.exe execution
+references: https://app.any.run/tasks/a095d767-b607-4abb-97b8-e8ba391da81b/
+author: Alexis Rio
+tags:
+    - attack.execution
+    - attack.t1059.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith:
+            - 'WinRAR.exe'
+        CommandLine|contains:
+            - ' AppData '
+            - ' Rar$DIb3820.3087 '
+    condition: selection
+falsepositives:
+            - unlikely
+level: medium
